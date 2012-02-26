@@ -4,6 +4,7 @@ class TweetsController < ApplicationController
   end
 
   def show
-    @translations = Tweet.find_by_id(params[:id]).translations
+    @original = Tweet.find_by_id(params[:id])
+    @tweets = @original.translations
   end
 end

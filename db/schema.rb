@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226035023) do
+ActiveRecord::Schema.define(:version => 20120226042920) do
 
   create_table "translations", :force => true do |t|
     t.integer  "tweet_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20120226035023) do
   create_table "users", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
 end

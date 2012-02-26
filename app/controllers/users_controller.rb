@@ -1,26 +1,27 @@
 class UsersController < ApplicationController
   def index
+    @users = User.all
   end
 
   def show
     @tweets = []
 
-    @translator = BingTranslator.new('3332158A9269231BFC06E6E72F219DC51973B8F5')
-    
-    supported_languages = @translator.supported_language_codes
+    translator = BingTranslator.new('3332158A9269231BFC06E6E72F219DC51973B8F5')
 
     language = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")[0] || nil
 
-    @supported = supported_languages.include? language
+    @supported = translator.supported_language_codes.include? language
 
-    Rails.logger.info "supported language: " + @supported.to_s
+    user = User.find_or_create_by_name params[:id]
 
     5.times do |element|
       result = Twitter.user_timeline(params[:id]).fetch(element)
-      tweet = Tweet.find_by_id_str(result.attrs["id_str"]) || Tweet.create(id_str: result.attrs["id_str"], text: result.text, user_id: params[:id].downcase)
+      tweet = Tweet.find_or_create_by_id_str(result.attrs["id_str"], text: result.text, user_id: user.name)
 
       if @supported
-        translated_tweet =  Translation.find(:first, :conditions => ["tweet_id = ? AND language = ?", tweet.id, language]) || Translation.create(text: @translator.translate( result.text, to: language), language: language, tweet_id: tweet.id)
+        translated_tweet =  Translation.find_or_create_by_tweet_id_and_language(tweet.id, language)
+        translated_tweet.text ||= translator.translate( result.text, to: language)
+        translated_tweet.save!
         @tweets << translated_tweet.text
       else 
         @tweets << tweet.text

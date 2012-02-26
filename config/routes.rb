@@ -1,10 +1,10 @@
 Devchallengeonrails::Application.routes.draw do
 
-  get '/history' => 'tweets#index'
-  match '/:id' => 'users#show'
+  get '/history'  => 'tweets#index'
+  get '/users'    => 'users#index'
+  match '/:id'    => 'users#show'
   
-  resources :tweets
-  resources :users
+  resources :tweets, :users
 
   root to: 'home#index'
 end
