@@ -1,5 +1,5 @@
 <ul>
 <% @tweets.each do |tweet| %>
-  <li><%= tweet %></li>
+  <li><%= tweet[:translation].text %></li>
 <% end %>
 </ul>

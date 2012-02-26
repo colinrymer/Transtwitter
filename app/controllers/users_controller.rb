@@ -22,9 +22,9 @@ class UsersController < ApplicationController
         translated_tweet =  Translation.find_or_create_by_tweet_id_and_language(tweet.id, language)
         translated_tweet.text ||= translator.translate( result.text, to: language)
         translated_tweet.save!
-        @tweets << translated_tweet.text
+        @tweets << {date: result.created_at, translation: translated_tweet}
       else 
-        @tweets << tweet.text
+        @tweets << {date: result.created_at, translation: tweet}
       end
     end
 

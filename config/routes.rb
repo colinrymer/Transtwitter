@@ -1,7 +1,7 @@
 Devchallengeonrails::Application.routes.draw do
 
-  get '/history'  => 'tweets#index'
-  get '/users'    => 'users#index'
+  get '/history'  => 'tweets#index', as: "history"
+  get '/users'    => 'users#index',  as: "users"
   match '/:id'    => 'users#show'
   
   resources :tweets, :users

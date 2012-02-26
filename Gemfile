@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'bootstrap-sass-rails'
 gem 'twitter'
 gem 'bing_translator', '1.1.0'
 gem 'heroku'
