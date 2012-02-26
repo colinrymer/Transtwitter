@@ -1,0 +1,5 @@
+<ul>
+<% @tweets.each do |tweet| %>
+  <li><%= link_to tweet.text, tweet_path(tweet.id) %></li>
+<% end %>
+</ul>
