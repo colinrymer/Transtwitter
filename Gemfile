@@ -5,9 +5,15 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-gem 'annotate', '~> 2.4.1.beta'
+group :development do
+  gem 'annotate', '~> 2.4.1.beta'
+  gem 'sqlite3'
+end
 
+group :production do
+  gem 'pg'
+  gem 'thin'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +31,8 @@ gem 'jquery-rails'
 
 gem 'twitter'
 gem 'bing_translator', '1.1.0'
+
+gem 'heroku'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
